@@ -1,0 +1,201 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EF276080134366B9002FED4C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF27607F134366B9002FED4C /* main.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EF276079134366B9002FED4C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EF27607B134366B9002FED4C /* MeasurementTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MeasurementTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF27607F134366B9002FED4C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		EF276081134366BA002FED4C /* MeasurementTool.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = MeasurementTool.1; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EF276078134366B9002FED4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EF276070134366B9002FED4C = {
+			isa = PBXGroup;
+			children = (
+				EF27607E134366B9002FED4C /* MeasurementTool */,
+				EF27607C134366B9002FED4C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EF27607C134366B9002FED4C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF27607B134366B9002FED4C /* MeasurementTool */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF27607E134366B9002FED4C /* MeasurementTool */ = {
+			isa = PBXGroup;
+			children = (
+				EF27607F134366B9002FED4C /* main.cpp */,
+				EF276081134366BA002FED4C /* MeasurementTool.1 */,
+			);
+			path = MeasurementTool;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EF27607A134366B9002FED4C /* MeasurementTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF276084134366BA002FED4C /* Build configuration list for PBXNativeTarget "MeasurementTool" */;
+			buildPhases = (
+				EF276077134366B9002FED4C /* Sources */,
+				EF276078134366B9002FED4C /* Frameworks */,
+				EF276079134366B9002FED4C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MeasurementTool;
+			productName = MeasurementTool;
+			productReference = EF27607B134366B9002FED4C /* MeasurementTool */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF276072134366B9002FED4C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = SwArc;
+			};
+			buildConfigurationList = EF276075134366B9002FED4C /* Build configuration list for PBXProject "MeasurementTool" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EF276070134366B9002FED4C;
+			productRefGroup = EF27607C134366B9002FED4C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF27607A134366B9002FED4C /* MeasurementTool */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF276077134366B9002FED4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF276080134366B9002FED4C /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EF276082134366BA002FED4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		EF276083134366BA002FED4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		EF276085134366BA002FED4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EF276086134366BA002FED4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF276075134366B9002FED4C /* Build configuration list for PBXProject "MeasurementTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF276082134366BA002FED4C /* Debug */,
+				EF276083134366BA002FED4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF276084134366BA002FED4C /* Build configuration list for PBXNativeTarget "MeasurementTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF276085134366BA002FED4C /* Debug */,
+				EF276086134366BA002FED4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EF276072134366B9002FED4C /* Project object */;
+}
