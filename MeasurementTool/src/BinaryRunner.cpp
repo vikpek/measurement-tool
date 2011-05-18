@@ -16,12 +16,9 @@ BinaryRunner::~BinaryRunner() {
 	// TODO Auto-generated destructor stub
 }
 
-void BinaryRunner::getBinaryRuntime(char *binary_path, int run_cycles) {
+double BinaryRunner::getBinaryRuntime(char *binary_path, int run_cycles) {
 	pid_t pid;
-	ofstream logfile;
-	char path_logfile[200];
-	sprintf(path_logfile, "%s_logfile.txt", binary_path);
-	logfile.open(path_logfile, ios::app);
+	double runtime;
 
 	for (int var = 0; var < run_cycles; ++var) {
 
@@ -57,8 +54,10 @@ void BinaryRunner::getBinaryRuntime(char *binary_path, int run_cycles) {
 			}
 		}
 		timer.stop();
+		runtime = timer.getElapsedTimeInMicroSec();
 
 	}
+	return runtime;
 }
 
 int BinaryRunner::getBinarySize(char *binary_path) {

@@ -8,7 +8,8 @@ CPP_SRCS += \
 ../src/LogEntry.cpp \
 ../src/Logger.cpp \
 ../src/MeasurementTool.cpp \
-../src/MySqlCommunicator.cpp \
+../src/SQLiteCommunicator.cpp \
+../src/StringTransformer.cpp \
 ../src/Timer.cpp 
 
 OBJS += \
@@ -16,7 +17,8 @@ OBJS += \
 ./src/LogEntry.o \
 ./src/Logger.o \
 ./src/MeasurementTool.o \
-./src/MySqlCommunicator.o \
+./src/SQLiteCommunicator.o \
+./src/StringTransformer.o \
 ./src/Timer.o 
 
 CPP_DEPS += \
@@ -24,7 +26,8 @@ CPP_DEPS += \
 ./src/LogEntry.d \
 ./src/Logger.d \
 ./src/MeasurementTool.d \
-./src/MySqlCommunicator.d \
+./src/SQLiteCommunicator.d \
+./src/StringTransformer.d \
 ./src/Timer.d 
 
 
@@ -32,7 +35,7 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	g++ -I/usr/local/sqlite-autoconf-3070602 -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

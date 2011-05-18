@@ -16,10 +16,9 @@ LogEntry::~LogEntry() {
 	// TODO Auto-generated destructor stub
 }
 
-void LogEntry::createLogEntry(time_t timestamp_, char *name_, double runtime_,
-		double size_, double mem_usage_, double exit_code_) {
+void LogEntry::createLogEntry(char *name_, double runtime_,
+		double size_, double mem_usage_, int exit_code_) {
 
-	timestamp = timestamp_;
 	strncpy(name, name_, 30);
 	runtime = runtime_;
 	size = size_;

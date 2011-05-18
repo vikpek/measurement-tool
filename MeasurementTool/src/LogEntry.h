@@ -18,17 +18,15 @@ public:
 	LogEntry();
 	virtual ~LogEntry();
 
-	void createLogEntry(time_t timestamp_, char *name_, double runtime_,
-			double size_, double mem_usage_, double exit_code_);
+	void createLogEntry(char *name_, double runtime_,
+			double size_, double mem_usage_, int exit_code_);
 
-private:
 	char id[12];
-	time_t timestamp;
 	char name[30];
 	double runtime;
 	double size;
 	double mem_usage;
-	double exit_code;
+	int exit_code;
 
 };
 

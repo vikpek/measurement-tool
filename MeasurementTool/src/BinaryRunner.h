@@ -24,7 +24,7 @@ public:
 	BinaryRunner();
 	virtual ~BinaryRunner();
 
-	void getBinaryRuntime(char *binary_path, int run_cycles);
+	double getBinaryRuntime(char *binary_path, int run_cycles);
 	int getBinarySize(char *binary_path);
 };
 

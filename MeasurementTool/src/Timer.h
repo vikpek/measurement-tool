@@ -12,6 +12,10 @@
 // Copyright (c) 2003 Song Ho Ahn
 //////////////////////////////////////////////////////////////////////////////
 
+
+// TODO implement on our own because of copyright?
+
+
 #ifndef TIMER_H_DEF
 #define TIMER_H_DEF
 
