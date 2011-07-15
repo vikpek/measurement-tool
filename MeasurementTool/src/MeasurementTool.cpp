@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
 	}
 	char valueName[200];
 	sprintf(valueName, "%s_runtime", binary_name);
-	ig.plotValueFromLogEntries(valueName, values);
+	ig.plotValueFromLogEntries(valueName, values, tableLength);
 
 //	double values = new
 //	ig.plotValueFromLogEntries()
