@@ -11,8 +11,11 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "LogEntry.h"
 #include <iostream>
 #include <fstream>
+#include <list>
+#include "StringTransformer.h"
 
 using namespace std;
 
@@ -24,8 +27,8 @@ public:
 	BinaryRunner();
 	virtual ~BinaryRunner();
 
-	double getBinaryRuntime(char *binary_path, int run_cycles);
-	int getBinarySize(char *binary_path);
+	LogEntry* getMeasurementLogEntries(char *binary_path, int quantity);
+
 };
 
 #endif /* BINARYRUNNER_H_ */

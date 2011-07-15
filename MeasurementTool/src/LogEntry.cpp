@@ -27,3 +27,5 @@ void LogEntry::createLogEntry(char *name_, double runtime_,
 
 
 }
+
+

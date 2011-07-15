@@ -23,6 +23,7 @@ public:
 
 	char id[12];
 	char name[30];
+	char timestamp[30];
 	double runtime;
 	double size;
 	double mem_usage;

@@ -1,7 +1,6 @@
 src/MeasurementTool.d src/MeasurementTool.o: ../src/MeasurementTool.cpp \
   ../src/BinaryRunner.h ../src/Timer.h ../src/LogEntry.h \
-  ../src/StringTransformer.h ../src/SQLiteCommunicator.h \
-  ../src/gnup/InterfaceGnuplot.h
+  ../src/SQLiteCommunicator.h ../src/StringTransformer.h
 
 ../src/BinaryRunner.h:
 
@@ -9,8 +8,6 @@ src/MeasurementTool.d src/MeasurementTool.o: ../src/MeasurementTool.cpp \
 
 ../src/LogEntry.h:
 
-../src/StringTransformer.h:
-
 ../src/SQLiteCommunicator.h:
 
-../src/gnup/InterfaceGnuplot.h:
+../src/StringTransformer.h:

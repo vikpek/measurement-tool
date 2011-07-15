@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 #include <sqlite3.h>
 #include <list>
 #include "LogEntry.h"
@@ -20,13 +21,15 @@ public:
 	SQLiteCommunicator();
 	virtual ~SQLiteCommunicator();
 
-	int writeToDatabase(char *binary_name, list<LogEntry> logEntries);
-	list<LogEntry> readLogentriesFromDatabase(char *binary_name);
+	int getTableSize(char *binary_name);
+	int writeToDatabase(char *binary_name, LogEntry* logEntries, int quantity);
+	LogEntry* readLogentriesFromDatabase(char *binary_name, int count);
+
 
 private:
 	int searchForTable(char *binary_name);
 	int createTable(char *binary_name);
-	int addToTable(char *binary_name, list<LogEntry> logEntries);
+	int addToTable(char *binary_name, LogEntry *logEntries, int quantity);
 
 };
 

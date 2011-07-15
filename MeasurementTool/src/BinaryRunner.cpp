@@ -16,12 +16,15 @@ BinaryRunner::~BinaryRunner() {
 	// TODO Auto-generated destructor stub
 }
 
-double BinaryRunner::getBinaryRuntime(char *binary_path, int run_cycles) {
+LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
+		int quantity) {
+	LogEntry *logEntries = new LogEntry[quantity];
+	StringTransformer st;
+
 	pid_t pid;
-	double runtime;
+	double size;
 
-	for (int var = 0; var < run_cycles; ++var) {
-
+	for (int var = 0; var < quantity; ++var) {
 		Timer timer;
 		timer.start();
 
@@ -54,19 +57,18 @@ double BinaryRunner::getBinaryRuntime(char *binary_path, int run_cycles) {
 			}
 		}
 		timer.stop();
-		runtime = timer.getElapsedTimeInMicroSec();
+
+		char* binary_name = st.returnFileNameFromPath(binary_path);
+		strncpy(logEntries[var].name, (char *)binary_name, 30);
+		logEntries[var].runtime = timer.getElapsedTimeInMicroSec();
+
+		ifstream binary_file(binary_path, ios::in | ios::binary | ios::ate);
+		if (binary_file.is_open()) {
+			size = (int) binary_file.tellg();
+		}
+		logEntries[var].exit_code = child_exit_code;
 
 	}
-	return runtime;
+	return logEntries;
 }
 
-int BinaryRunner::getBinarySize(char *binary_path) {
-	ifstream binary_file(binary_path, ios::in | ios::binary | ios::ate);
-	int size;
-	if (binary_file.is_open()) {
-		size = (int) binary_file.tellg();
-	}
-
-	return size;
-
-}
