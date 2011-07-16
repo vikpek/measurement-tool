@@ -18,19 +18,23 @@ StringTransformer::~StringTransformer() {
 
 char *StringTransformer::returnFileNameFromPath(char *binary_path)
 {
+	char *tmp = NULL;
+	tmp = (char *) calloc(300, sizeof(char));
+	strcpy(tmp, binary_path);
+
 	char * binary_name;
-	    char *tmp_string[sizeof(strtok(binary_path, "/"))];
+	    char *tmp_string[sizeof(strtok(tmp, "/"))];
 	    if(sizeof(tmp_string) > 0)
 	    {
-	        tmp_string[0] = strtok(binary_path, "/");
-	        unsigned int tmp_s = sizeof(strtok(binary_path, "/"));
+	        tmp_string[0] = strtok(tmp, "/");
+	        unsigned int tmp_s = sizeof(strtok(tmp, "/"));
 	        for(unsigned int i = 0; i < tmp_s; i++)
 	        {
 	            tmp_string[i] = strtok (NULL, "/");
 	        }
-	        binary_name = tmp_string[tmp_s-2];
+	        tmp = tmp_string[tmp_s-2];
 	    }
-	    return binary_name;
+	    return tmp;
 }
 
 

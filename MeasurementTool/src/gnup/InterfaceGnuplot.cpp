@@ -17,28 +17,54 @@ InterfaceGnuplot::~InterfaceGnuplot() {
 	// TODO Auto-generated destructor stub
 }
 
-void InterfaceGnuplot::plotValueFromLogEntries(char *valueName, double *values, int length)
-{
-//	set title "Cavendish Data"
-//	set xlabel "Time (s)"
-//	set ylabel "Angle (mrad)"
-//	set grid
-//	set   autoscale                        # scale axes automatically
-//	      unset log                              # remove any log-scaling
-//	      unset label                            # remove any previous labels
-//	      set xtic auto                          # set xtics automatically
-//	      set ytic auto                          # set ytics automatically
-//	      set title "Force Deflection Data for a Beam and a Column"
-//	      set xlabel "Deflection (meters)"
-//	      set ylabel "Force (kN)"
-//	      set key 0.01,100
-//	      set label "Yield Point" at 0.003,260
-//	      set arrow from 0.0028,250 to 0.003,280
-//	      set xr [0.0:0.022]
-//	      set yr [0:325]
 
-	FILE *gnuplotPipe = popen("/usr/local/bin/gnuplot -persist", "w");
-	fputs("plot \"-\" with linespoints \n", gnuplotPipe);
+char* getXMode(int xmode){
+	switch (xmode) {
+		case 0:
+			return "lines";
+		case 1:
+			return "dots";
+		case 2:
+			return "points";
+		case 3:
+			return "impulses";
+		case 4:
+			return "steps";
+		default:
+			break;
+	}
+
+	return "lines";
+
+}
+
+void InterfaceGnuplot::plotValueFromLogEntries(char *valueName, double *values, int length, int xmode,int fExport, char *exportPath)
+{
+
+	FILE *gnuplotPipe = popen("/opt/local/bin/gnuplot -persist", "w");
+
+	if(fExport == 1){
+		fputs("set term gif\n", gnuplotPipe);
+		char exprtPath[200];
+		sprintf(exprtPath, "set out \"%s_%s.gif\" \n", exportPath, valueName);
+		fputs(exprtPath, gnuplotPipe);
+	}
+
+	char title[60];
+	sprintf(title, "set title \"Graph for %s for the last %d testruns\" \n", valueName, length);
+	fputs(title, gnuplotPipe);
+	fputs("set xlabel \"Run\" \n", gnuplotPipe);
+	char ylabelTitle[30];
+	sprintf(ylabelTitle, "set ylabel \"%s\" \n", valueName);
+	fputs(ylabelTitle, gnuplotPipe);
+	fputs("set autoscale \n", gnuplotPipe);
+
+
+
+	char plotCommand[200];
+	char* xmodeStrg = getXMode(xmode);
+	sprintf(plotCommand, "plot \"-\" with %s \n", xmodeStrg);
+	fputs(plotCommand, gnuplotPipe);
 	for (int var = 0; var < length; ++var) {
 		char strg[30];
 		sprintf(strg,"%.2f \n",values[var]);

@@ -13,7 +13,7 @@ public:
 	InterfaceGnuplot();
 	virtual ~InterfaceGnuplot();
 
-	void plotValueFromLogEntries(char* valueName, double* values, int length);
+	void plotValueFromLogEntries(char* valueName, double* values, int length, int xmode, int fExport, char *exportPath);
 };
 
 #endif /* INTERFACEGNUPLOT_H_ */

@@ -59,7 +59,8 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 		timer.stop();
 
 		char* binary_name = st.returnFileNameFromPath(binary_path);
-		strncpy(logEntries[var].name, (char *)binary_name, 30);
+
+		strncpy(logEntries[var].name, binary_name, 30);
 		logEntries[var].runtime = timer.getElapsedTimeInMicroSec();
 
 		ifstream binary_file(binary_path, ios::in | ios::binary | ios::ate);
