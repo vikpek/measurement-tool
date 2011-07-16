@@ -112,7 +112,21 @@ int SQLiteCommunicator::writeToDatabase(char *binary_name, LogEntry* logEntries,
  * -1 error.
  */
 int SQLiteCommunicator::searchForTable(char *binary_name) {
-	return 0;
+	sqlite3_open("my_db.sql3", &db);
+		int result = 0;
+		char tmp_s[150];
+		int n;
+		n = sprintf(tmp_s, "select count(*) from %s", binary_name);
+
+		const char *sqlStatement = tmp_s;
+		sqlite3_stmt *compiledStatement;
+		if (sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL)
+				== SQLITE_OK) {
+			result = 1;
+		}
+		sqlite3_finalize(compiledStatement);
+		sqlite3_close(db);
+		return result;
 }
 
 int SQLiteCommunicator::addToTable(char *binary_name, LogEntry* logEntries_,

@@ -64,20 +64,18 @@ int main(int argc, char *argv[]) {
             {"brief",   no_argument,       &flag_verbose, 0},
             /* These options don't set a flag.
                We distinguish them by their indices. */
-            {"sdf",     no_argument,       0, 'a'},
-            {"append",  no_argument,       0, 'b'},
             {"binary-path",  required_argument, 0, 'p'},
             {"quantity",  required_argument, 0, 'q'},
             {"maximum-runtime",    required_argument, 0, 'r'},
             {"maximum-memory",    required_argument, 0, 'm'},
             {"plotting-range",    required_argument, 0, 'g'},
             {"plotting-style",    required_argument, 0, 'x'},
-            {"plotting-parameters",    required_argument, 0, 'x'},
+            {"plotting-parameters",    required_argument, 0, 'h'},
             {0, 0, 0, 0}
           };
 		int option_index = 0;
 
-		c = getopt_long(argc, argv, "vp:lq:x:m:r:b:e", long_options,
+		c = getopt_long(argc, argv, "vp:lq:x:m:r:b:eg:", long_options,
 				&option_index);
 
 		if(c == -1)
@@ -91,7 +89,7 @@ int main(int argc, char *argv[]) {
 		case 'q':
 			quantity = atoi(optarg);
 			if(quantity<1){
-				printf("Quantity value not valid. Set to 1 instead.")
+				printf("Quantity value not valid. Set to 1 instead.");
 				quantity = 1;
 			}
 			printf("Quantity set to %d \n", quantity);
@@ -187,10 +185,10 @@ int main(int argc, char *argv[]) {
 
 		//todo dynamic.
 		plotter.xmode = 0;
-		plotter.fBinarysize = 1;
-		plotter.fRuntime = 1;
-		plotter.fExitcode = 1;
-		plotter.fMemory = 1;
+		plotter.fBinarysize = flag_xBinary_size;
+		plotter.fRuntime = flag_xRuntime;
+		plotter.fExitcode = flag_xExit_code;
+		plotter.fMemory = flag_xMemory;
 
 		int tableLength = sqlc.getTableSize(binary_name);
 		LogEntry *le = sqlc.readLogentriesFromDatabase(binary_name,
