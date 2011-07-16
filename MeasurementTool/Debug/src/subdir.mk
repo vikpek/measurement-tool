@@ -6,7 +6,6 @@
 CPP_SRCS += \
 ../src/BinaryRunner.cpp \
 ../src/LogEntry.cpp \
-../src/Logger.cpp \
 ../src/MeasurementTool.cpp \
 ../src/SQLiteCommunicator.cpp \
 ../src/StringTransformer.cpp \
@@ -15,7 +14,6 @@ CPP_SRCS += \
 OBJS += \
 ./src/BinaryRunner.o \
 ./src/LogEntry.o \
-./src/Logger.o \
 ./src/MeasurementTool.o \
 ./src/SQLiteCommunicator.o \
 ./src/StringTransformer.o \
@@ -24,7 +22,6 @@ OBJS += \
 CPP_DEPS += \
 ./src/BinaryRunner.d \
 ./src/LogEntry.d \
-./src/Logger.d \
 ./src/MeasurementTool.d \
 ./src/SQLiteCommunicator.d \
 ./src/StringTransformer.d \

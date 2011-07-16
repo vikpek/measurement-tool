@@ -18,6 +18,7 @@ public:
 	LogEntry();
 	virtual ~LogEntry();
 
+	char* toString();
 	void createLogEntry(char *name_, double runtime_,
 			double size_, double mem_usage_, int exit_code_);
 

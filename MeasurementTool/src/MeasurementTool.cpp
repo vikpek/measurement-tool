@@ -166,16 +166,28 @@ int main(int argc, char *argv[]) {
 
 	LogEntry *logEntries = new LogEntry[quantity];
 
-	logEntries = br.getMeasurementLogEntries(binary_path, quantity);
-//	le_list.push_front(le);
 
+	// start binary testrun(s)
+	logEntries = br.getMeasurementLogEntries(binary_path, quantity);
+
+	// db communication
 	sqlc.writeToDatabase(binary_name, logEntries, quantity);
+	int tableLength = sqlc.getTableSize(binary_name);
+	LogEntry *le = sqlc.readLogentriesFromDatabase(binary_name,
+			tableLength);
+
 
 	if (flag_logfile == 1) {
 		ofstream logfile;
 		char path_logfile[200];
 		sprintf(path_logfile, "%s_logfile.txt", binary_path);
-		logfile.open(path_logfile, ios::app);
+		logfile.open(path_logfile, ios::trunc);
+
+		for (int var = 0; var < tableLength;  var++) {
+			logfile<<le[var].toString();
+		}
+
+		logfile.close();
 	}
 
 	//todo
@@ -189,10 +201,6 @@ int main(int argc, char *argv[]) {
 		plotter.fRuntime = flag_xRuntime;
 		plotter.fExitcode = flag_xExit_code;
 		plotter.fMemory = flag_xMemory;
-
-		int tableLength = sqlc.getTableSize(binary_name);
-		LogEntry *le = sqlc.readLogentriesFromDatabase(binary_name,
-				tableLength);
 
 		plotter.startPlotting(plotQuantity, tableLength, binary_name, le, 0,
 				binary_path);
