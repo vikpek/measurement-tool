@@ -20,6 +20,7 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 		int quantity) {
 	LogEntry *logEntries = new LogEntry[quantity];
 	StringTransformer st;
+	struct rusage usage;
 
 	pid_t pid;
 	double size;
@@ -33,9 +34,9 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 			perror("fork error");
 			break;
 		case 0:
-			//TODO parameters for binaries have to be handled
 			char *child_args[5];
 			execv(binary_path, child_args);
+			_exit(EXIT_FAILURE);
 			puts("execv error");
 			exit(EXIT_FAILURE);
 			break;
@@ -44,11 +45,25 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 		}
 
 		int child_exit_code;
-		if (pid != 0) {
-			int child_stat;
-			pid_t child_pid;
 
-			child_pid = wait(&child_stat);
+		int status;
+		if (pid > 0) {
+
+			int child_stat;
+			while (1) {
+				if (wait(&child_stat)) {
+					printf("if yeah\n");
+					break;
+				}else{
+					printf("no hell \n");
+				}
+
+			}
+
+			getrusage(RUSAGE_CHILDREN, &usage);
+
+			timer.stop();
+//			getrusage(RUSAGE_CHILDREN,&usage);
 
 			if (WIFEXITED(child_stat)) {
 				child_exit_code = WIFEXITED(child_stat);
@@ -56,17 +71,26 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 				child_exit_code = -1;
 			}
 		}
-		timer.stop();
 
 		char* binary_name = st.returnFileNameFromPath(binary_path);
 
+		long t = usage.ru_ixrss;
+		long t2 = usage.ru_idrss;
+		long t3 = usage.ru_isrss;
+
+		printf("%lu.%lu\n", usage.ru_utime.tv_sec, usage.ru_utime.tv_usec);
+
 		strncpy(logEntries[var].name, binary_name, 30);
-		logEntries[var].runtime = timer.getElapsedTimeInMicroSec();
+		double test = timer.getElapsedTimeInSec();
+		logEntries[var].runtime = timer.getElapsedTimeInSec();
+//		timer.getElapsedTimeInSec()
 
 		ifstream binary_file(binary_path, ios::in | ios::binary | ios::ate);
 		if (binary_file.is_open()) {
 			size = (int) binary_file.tellg();
+			logEntries[var].size = size;
 		}
+
 		logEntries[var].exit_code = child_exit_code;
 
 	}

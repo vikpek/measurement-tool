@@ -7,6 +7,7 @@
 
 #include "Timer.h"
 #include <sys/types.h>
+#include <sys/resource.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
