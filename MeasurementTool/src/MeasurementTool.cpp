@@ -169,8 +169,13 @@ int main(int argc, char *argv[]) {
 
 	// start binary testrun(s)
 	logEntries = br.getMeasurementLogEntries(binary_path, quantity);
+	if(logEntries == NULL){
+		puts("ERROR: Measurement was not successful. Program aborted.\n");
+		exit(1);
+	}
 
 	// db communication
+	puts("Writing to database...");
 	sqlc.writeToDatabase(binary_name, logEntries, quantity);
 	int tableLength = sqlc.getTableSize(binary_name);
 	LogEntry *le = sqlc.readLogentriesFromDatabase(binary_name,
@@ -178,6 +183,7 @@ int main(int argc, char *argv[]) {
 
 
 	if (flag_logfile == 1) {
+		puts("Writing Logfile");
 		ofstream logfile;
 		char path_logfile[200];
 		sprintf(path_logfile, "%s_logfile.txt", binary_path);
@@ -193,6 +199,7 @@ int main(int argc, char *argv[]) {
 	//todo
 	flag_plotting = 1;
 	if (flag_plotting == 1) {
+		puts("Plotting started...");
 		Plotter plotter;
 
 		//todo dynamic.
@@ -205,7 +212,7 @@ int main(int argc, char *argv[]) {
 		plotter.startPlotting(plotQuantity, tableLength, binary_name, le, 0,
 				binary_path);
 		if (flag_export == 1) {
-			printf("Export of Graphs to %s", binary_path);
+			printf("Plot export to %s", binary_path);
 			plotter.startPlotting(plotQuantity, tableLength, binary_name, le, 1,
 					binary_path);
 		}

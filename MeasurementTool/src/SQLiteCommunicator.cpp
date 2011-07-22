@@ -2,14 +2,14 @@
  * SQLiteCommunicator.cpp
  *
  *  Created on: 08.05.2011
- *      Author: vikpek
+ *      Author: Viktor Pekar
  */
 
 #include "SQLiteCommunicator.h"
 
 sqlite3* db;
 char* db_err;
-
+char db_name[30] = "measurement_db.sql3";
 SQLiteCommunicator::SQLiteCommunicator() {
 	// TODO Auto-generated constructor stub
 
@@ -35,7 +35,7 @@ int readEntriesCallback(void *args, int numCols, char **results,
 }
 
 int SQLiteCommunicator::getTableSize(char *binary_name) {
-	sqlite3_open("my_db.sql3", &db);
+	sqlite3_open(db_name, &db);
 	int result = 0;
 	char tmp_s[150];
 	int n;
@@ -56,7 +56,7 @@ int SQLiteCommunicator::getTableSize(char *binary_name) {
 
 LogEntry* SQLiteCommunicator::readLogentriesFromDatabase(char *binary_name, int count) {
 	LogEntry *logEntries = new LogEntry[count];
-	sqlite3_open("my_db.sql3", &db);
+	sqlite3_open(db_name, &db);
 	char tmp_s[150];
 	int n;
 	n = sprintf(tmp_s, "select * from %s", binary_name);
@@ -112,7 +112,7 @@ int SQLiteCommunicator::writeToDatabase(char *binary_name, LogEntry* logEntries,
  * -1 error.
  */
 int SQLiteCommunicator::searchForTable(char *binary_name) {
-	sqlite3_open("my_db.sql3", &db);
+	sqlite3_open(db_name, &db);
 		int result = 0;
 		char tmp_s[150];
 		int n;
@@ -131,7 +131,7 @@ int SQLiteCommunicator::searchForTable(char *binary_name) {
 
 int SQLiteCommunicator::addToTable(char *binary_name, LogEntry* logEntries_,
 		int quantity) {
-	sqlite3_open("my_db.sql3", &db);
+	sqlite3_open(db_name, &db);
 	LogEntry *logEntries = new LogEntry[quantity];
 	logEntries = logEntries_;
 	for (int var = 0; var < quantity; ++var) {
@@ -153,7 +153,7 @@ int SQLiteCommunicator::addToTable(char *binary_name, LogEntry* logEntries_,
 
 int SQLiteCommunicator::createTable(char *binary_name) {
 
-	sqlite3_open("my_db.sql3", &db);
+	sqlite3_open(db_name, &db);
 	char tmp_s[300];
 	int n;
 	n =

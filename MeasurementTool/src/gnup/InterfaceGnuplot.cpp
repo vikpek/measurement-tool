@@ -2,7 +2,9 @@
  * InterfaceGnuplot.cpp
  *
  *  Created on: Jul 12, 2011
- *      Author: dogmeat
+ *      Author: Viktor Pekar
+ *
+ *      This interface  uses pipes for interacting with gnuplot.
  */
 
 #include "InterfaceGnuplot.h"
@@ -41,7 +43,9 @@ char* getXMode(int xmode){
 void InterfaceGnuplot::plotValueFromLogEntries(char *valueName, double *values, int length, int xmode,int fExport, char *exportPath)
 {
 
-	FILE *gnuplotPipe = popen("/opt/local/bin/gnuplot -persist", "w");
+	char gnuplot_command[100];
+	sprintf(gnuplot_command, "/opt/local/bin/gnuplot -persist\n");
+	FILE *gnuplotPipe = popen(gnuplot_command, "w");
 
 	if(fExport == 1){
 		fputs("set term gif\n", gnuplotPipe);
