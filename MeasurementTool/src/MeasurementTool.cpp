@@ -19,7 +19,6 @@ static void usage(const char *prgnam) {
 }
 
 int main(int argc, char *argv[]) {
-	int arg;
 
 	// maximum memory per testrun in bytes. 0 is default and means no limit.
 	int max_memory = 0;
@@ -121,7 +120,7 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'x':
 			xmode = atoi(optarg);
-			printf("XMode set \n");
+			printf("Gnuplot style (xmode) set to %d \n", xmode);
 			break;
 		case 'v':
 			flag_verbose = 1;
@@ -135,14 +134,14 @@ int main(int argc, char *argv[]) {
 
 		case '?':
 			if (optopt == 'p') {
-				printf("Plotting set to default parameters \n");
+				printf("Plotting set to default parameters. \n");
 				flag_plotting = 1;
 				xmode = 0;
 				plotQuantity = 0;
 			}
 			if (optopt == 'x') {
 				printf(
-						"gnuplot style set to default because no styleparam entered \n");
+						"Gnuplot style (xmode) set to default because no style parameter has been entered. \n");
 			}
 			break;
 		case 'a':
@@ -167,7 +166,9 @@ int main(int argc, char *argv[]) {
 	LogEntry *logEntries = new LogEntry[quantity];
 
 
-	// start binary testrun(s)
+	// start binary testrun(
+	br.max_memory_limit = max_memory;
+	br.max_runtime_limit = max_runtime;
 	logEntries = br.getMeasurementLogEntries(binary_path, quantity);
 	if(logEntries == NULL){
 		puts("ERROR: Measurement was not successful. Program aborted.\n");

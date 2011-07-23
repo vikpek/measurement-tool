@@ -10,6 +10,7 @@
 #include <sys/resource.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "LogEntry.h"
@@ -27,6 +28,9 @@ class BinaryRunner {
 public:
 	BinaryRunner();
 	virtual ~BinaryRunner();
+
+	int max_memory_limit;
+	int max_runtime_limit;
 
 	LogEntry* getMeasurementLogEntries(char *binary_path, int quantity);
 
