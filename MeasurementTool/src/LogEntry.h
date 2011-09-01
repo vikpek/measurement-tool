@@ -2,7 +2,7 @@
  * LogEntry.h
  *
  *  Created on: 04.05.2011
- *      Author: vikpek
+ *      Author: Viktor Pekar
  */
 
 #include <time.h>
@@ -19,8 +19,8 @@ public:
 	virtual ~LogEntry();
 
 	char* toString();
-	void createLogEntry(char *name_, double runtime_,
-			double size_, double mem_usage_, int exit_code_);
+	void createLogEntry(char *name_, double runtime_, double size_,
+			double mem_usage_, double max_mem_usage_, int exit_code_);
 
 	char id[12];
 	char name[30];
@@ -28,6 +28,7 @@ public:
 	double runtime;
 	double size;
 	double mem_usage;
+	double max_mem_usage;
 	int exit_code;
 
 };

@@ -2,7 +2,7 @@
  * SQLiteCommunicator.h
  *
  *  Created on: 08.05.2011
- *      Author: vikpek
+  *      Author: Viktor Pekar
  */
 #ifndef SQLITECOMMUNICATOR_H_
 #define SQLITECOMMUNICATOR_H_

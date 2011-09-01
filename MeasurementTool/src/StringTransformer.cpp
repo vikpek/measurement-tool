@@ -2,18 +2,17 @@
  * StringTransformer.cpp
  *
  *  Created on: May 17, 2011
- *      Author: vikpek
+ *      Author: Viktor Pekar
  */
 
 #include "StringTransformer.h"
 
 StringTransformer::StringTransformer() {
-	// TODO Auto-generated constructor stub
 
 }
 
 StringTransformer::~StringTransformer() {
-	// TODO Auto-generated destructor stub
+
 }
 
 char *StringTransformer::returnFileNameFromPath(char *binary_path)

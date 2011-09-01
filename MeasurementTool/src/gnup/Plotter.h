@@ -2,7 +2,7 @@
  * Plotter.h
  *
  *  Created on: Jul 16, 2011
- *      Author: dogmeat
+ *      Author: Viktor Pekar
  */
 
 #ifndef PLOTTER_H_

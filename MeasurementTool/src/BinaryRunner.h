@@ -2,7 +2,14 @@
  * BinaryRunner.h
  *
  *  Created on: 03.05.2011
- *      Author: vikpek
+ *      Author: Viktor Pekar
+ *
+ *      The main measurement class. Basically a process
+ *      starts a child-process that runs the binary. The
+ *      father process measures the child while runtime.
+ *
+ *      Afterwards all information are stored and returned
+ *      as an LogEntry-entity.
  */
 
 #include "Timer.h"
@@ -28,6 +35,8 @@ class BinaryRunner {
 public:
 	BinaryRunner();
 	virtual ~BinaryRunner();
+
+	int measure_intervall;
 
 	int max_memory_limit;
 	int max_runtime_limit;

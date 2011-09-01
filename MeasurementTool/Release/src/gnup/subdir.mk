@@ -4,32 +4,20 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/BinaryRunner.cpp \
-../src/LogEntry.cpp \
-../src/MeasurementTool.cpp \
-../src/SQLiteCommunicator.cpp \
-../src/StringTransformer.cpp \
-../src/Timer.cpp 
+../src/gnup/InterfaceGnuplot.cpp \
+../src/gnup/Plotter.cpp 
 
 OBJS += \
-./src/BinaryRunner.o \
-./src/LogEntry.o \
-./src/MeasurementTool.o \
-./src/SQLiteCommunicator.o \
-./src/StringTransformer.o \
-./src/Timer.o 
+./src/gnup/InterfaceGnuplot.o \
+./src/gnup/Plotter.o 
 
 CPP_DEPS += \
-./src/BinaryRunner.d \
-./src/LogEntry.d \
-./src/MeasurementTool.d \
-./src/SQLiteCommunicator.d \
-./src/StringTransformer.d \
-./src/Timer.d 
+./src/gnup/InterfaceGnuplot.d \
+./src/gnup/Plotter.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/%.o: ../src/%.cpp
+src/gnup/%.o: ../src/gnup/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
 	g++ -I/usr/local/sqlite-amalgamation-3070602 -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"

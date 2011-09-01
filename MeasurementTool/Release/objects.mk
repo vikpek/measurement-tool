@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -l/usr/local/mysql-5.5.11-osx10.6-x86_64/lib/libmysqlclient.a
+LIBS := -lsqlite3
 

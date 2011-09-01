@@ -2,7 +2,7 @@
  * BinaryRunner.cpp
  *
  *  Created on: 03.05.2011
- *      Author: vikpek
+ *      Author: Viktor Pekar
  */
 
 #include "BinaryRunner.h"
@@ -18,21 +18,23 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 	LogEntry *logEntries = new LogEntry[quantity];
 	StringTransformer st;
 
+	/* Using the rstructs for measurement would be a
+	 * nicer method than ps-pipes, but its
+	 * really dependend on compiler and os
+	 * and mostly does not work.
+	 */
 //	struct rusage usage;
-
 	pid_t pid;
 	double size;
 	char err_msg[] = "child_execv_error\n";
 
-	//TODO
-	//char *child_args[5];
+	char *child_args[5];
 
 	int err_pipe[2];
 	pipe(err_pipe);
 
 	for (int var = 0; var < quantity; ++var) {
 		Timer timer;
-		puts("Timer started...\n");
 		/**
 		 * Timer is being started right before the
 		 * child process is being created and the binary started.
@@ -44,9 +46,6 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 			perror("fork error");
 			break;
 		case 0:
-//			TODO
-//			execv(binary_path, child_args);
-
 			/*
 			 * Child executes the binary.
 			 */
@@ -72,7 +71,6 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 
 		int mem_sum = 0;
 		int max_mem = 0;
-		int min_mem = INT32_MAX;
 		double runtime_tmp = 0;
 
 		if (pid > 0) {
@@ -87,7 +85,7 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 
 			sprintf(ps_command, "ps x -p %d -eo rss\n", pid);
 			FILE *psPipe;
-			char path[PATH_MAX];
+			char path[30];
 
 			int i = 0;
 
@@ -95,12 +93,11 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 			 * while waiting for binary-run to terminate do...
 			 */
 			while (waitpid(pid, &child_stat, WNOHANG) == 0) {
-
 				psPipe = popen(ps_command, "r");
 				/*
 				 * 1. check memory usage for child-pid
 				 */
-				while (fgets(path, PATH_MAX, psPipe) != NULL) {
+				while (fgets(path, 30, psPipe) != NULL) {
 					if (strstr(path, "RSS")) {
 						// do nothing
 					} else {
@@ -113,16 +110,20 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 						 * Causes the exit-code to be -1.
 						 */
 
-						if(max_runtime_limit>0){
+						if (max_runtime_limit > 0) {
 							runtime_tmp = timer.getElapsedTimeInSec();
-							if(runtime_tmp>max_runtime_limit){
-								printf("Process terminated because of runtime limit overrun.\n %f USED / %d MAXIMUM  \n", runtime_tmp, max_runtime_limit);
+							if (runtime_tmp > max_runtime_limit) {
+								printf(
+										"Process terminated because of runtime limit overrun.\n %f USED / %d MAXIMUM  \n",
+										runtime_tmp, max_runtime_limit);
 								kill(pid, SIGTERM);
 							}
 						}
-						if(max_memory_limit>0){
-							if(mem_usage>max_memory_limit){
-								printf("Process terminated because of memory limit overrun.\n %d USED / %d MAXIMUM  \n", mem_usage, max_memory_limit);
+						if (max_memory_limit > 0) {
+							if (mem_usage > max_memory_limit) {
+								printf(
+										"Process terminated because of memory limit overrun.\n %d USED / %d MAXIMUM  \n",
+										mem_usage, max_memory_limit);
 								kill(pid, SIGTERM);
 							}
 						}
@@ -133,27 +134,30 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 						if (mem_usage > 0) {
 							if (mem_usage > max_mem)
 								max_mem = mem_usage;
-
-							if (mem_usage < min_mem)
-								min_mem = mem_usage;
-
 							i++;
 							mem_sum += mem_usage;
 						}
 					}
 				}
-
+				usleep(measure_intervall * 1000);
 			}
-			mem_sum = mem_sum / i;
-
+			if (i > 0) {
+				mem_sum = mem_sum / i;
+			}
 			/*
 			 * alternative memory measure method -
 			 * but does not work properly for most compilers.
 			 */
+
+			/* Using the rstructs for measurement would be a
+			 * nicer method than ps-pipes, but its
+			 * really dependend on compiler and os
+			 * and mostly does not work.
+			 */
 //			getrusage(RUSAGE_CHILDREN, &usage);
 			timer.stop();
-			puts("Timer stopped.\n");
-
+			pclose(psPipe);
+			runtime_tmp = timer.getElapsedTimeInSec();
 			/*
 			 *if the exec call in the child process does
 			 *if not start or ends unnaturally, a pipe
@@ -187,6 +191,7 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 			size = (int) binary_file.tellg();
 
 		}
+		binary_file.close();
 
 		/*
 		 * All measured information are being
@@ -199,6 +204,18 @@ LogEntry* BinaryRunner::getMeasurementLogEntries(char *binary_path,
 		logEntries[var].exit_code = child_exit_code;
 		logEntries[var].mem_usage = mem_sum;
 		logEntries[var].size = size;
+		logEntries[var].max_mem_usage = max_mem;
+
+		printf("#############################################\n");
+		printf("# Testrun %d from %d runs\n", var + 1, quantity);
+		printf("# Binaryname: %s\n", binary_name);
+		printf("# Binarypath: %s\n", binary_path);
+		printf("# Runtime: %f s\n", runtime_tmp);
+		printf("# Memory usage: %d Bytes\n", mem_sum);
+		printf("# Maximum Memory usage: %d Bytes\n", max_mem);
+		printf("# Binarysize: %.0f Bytes\n", size);
+		printf("# Exitcode: %d\n", child_exit_code);
+		printf("#############################################\n");
 	}
 	return logEntries;
 }

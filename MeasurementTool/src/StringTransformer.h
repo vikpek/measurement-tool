@@ -2,13 +2,15 @@
  * StringTransformer.h
  *
  *  Created on: May 17, 2011
- *      Author: vikpek
+ *      Author: Viktor Pekar
  */
 
 #ifndef STRINGTRANSFORMER_H_
 #define STRINGTRANSFORMER_H_
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <string.h>
 
 using namespace std;
 class StringTransformer {
