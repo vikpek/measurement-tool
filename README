@@ -1,0 +1,49 @@
+NAME
+	measure --  tool for binary measurement
+	
+SYNOPSIS 
+	measure	-b [PATH] [options] 
+	
+DESCRIPTION
+	Measure runs a binary and measures runtime in nanoseconds, memory usage, binary size and exit code. Test information are stored in a SQLite Database and may be exported to a text logfile. Any information may be viewed in graph that may be exported to a gif-file. 
+	
+	Default behavior is on test run of the binary and storage to database. The other mentioned featured require correct set of options (check next paragraph).
+	
+OPTIONS
+	-p [PATH], --binary-path [PATH] 
+		[PATH] is required and the absolute path to binary. Measur does not run without this parameter.
+		
+	-q [NUM], --quantity [NUM] 
+		Defines how many times the binary is executed. Multiple tests creates multiple test results. (0 or negative numbers are not valid and will lead to the default value - 1)
+	-r [NUM], --maximum-runtime [NUM]
+		Defines the maximum runtime per each testrun. Binary execution that takes longer, is going to be killed from outside. A test result is going to be created anyway.
+	-m [NUM], --maximum-memory [NUM]
+		Defines the maximum memory usage per each testrun. Binary execution that takes more memory, is going to be killed from outside. A test result is going to be created anyway.
+	-l, --logging-enabled, --loggin-disabled
+		Defines whether or not a logfile is being created or new results appended to an exisiting one. 
+	-v, --verbose, --brief
+		Defines the level of execution-output.
+	-g, -g [NUM], --plotting-range [NUM]
+		Defines that a graph is plotted from the testresults. Optional a range may be passed to limit the number of testresults from the database. 
+		For example passing -g 20 will only plot the newest result +19 old results from the database. 0 is default and means alle results from database are being used.
+	-x [NUM], --plotting-style [NUM]
+		Defines which way the graph should be displayed. 
+		0 - lines
+		1 - dots
+		2 - points
+		3 - impulses
+		4 - steps
+		Check out gnuplot-manual for mor details to these styles.
+	-e, --export-enabled, --export-disabled
+		Defines whether or not the plotted graphs should be exported to the same folder as the binary is located. (If this export option is set without the g-option from above, the program behaves as '-g' would have been entered.)
+	-h [STRING], --plotting-parameters [STRING]
+		By default the runtime and memory usage is plotted by default (in case g-option is set). For different cases the parameters may be enabled by using a string that construction is described below:
+			We have the following parameters:
+				r	- for runtime
+				m	- for memory usage
+				s	- for binary size
+				e	- for exitcode
+		Passing '-h rmse' would case that a graph is displayed for any parameter. '-h se' would only print binary size and exit code. The order of chars does not matter, unvalid chars will be ignored. 
+		
+		This option has also effect on the graph export.
+				
